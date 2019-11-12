@@ -127,8 +127,9 @@ export default class Autocomplete extends Component {
 					>
 						<div className={styles.content}>
 							{tags.map((tag, idx) => {          
-								const valueToRender = (typeof tag === 'string') ? tag : tag.label
-								return <Tag value={valueToRender} key={idx} onDelete={this._onClickDelete.bind(this, idx)} />
+								const valueToRender = (typeof tag === 'string') ? null : tag.value
+								const labelToRender = (typeof tag === 'string') ? tag : tag.label
+								return <Tag value={valueToRender} label={labelToRender} key={idx} onDelete={this._onClickDelete.bind(this, idx)} />
 							})}
 							<div className={`${input ? styles.inputContainer : styles.inputHidden}`}>
 								<input
@@ -289,7 +290,7 @@ export default class Autocomplete extends Component {
 
 		this.setState({
 			value: '',
-			tags: (!limitTags || tags.length < limitTags) ? [...tags, label ] : tags
+			tags: (!limitTags || tags.length < limitTags) ? [...tags, {value, label} ] : tags
 		})
 		this.handleInputVisibility(tagsLength+1)
 		this._clearSuggestions()

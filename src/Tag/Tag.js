@@ -10,17 +10,17 @@ export default class Tag extends PureComponent {
 	}
 
 	static defaultProps = {
-		onDelete: ()=>{}
+		onDelete: () => { }
 	}
 
 	render() {
-		const { value, onDelete } = this.props
+		const { value, label, onDelete } = this.props
 		return (
 			<div className={styles.tag}>
 				<div className={styles.text}>
-					{value}
+					{label}
 				</div>
-				<span className={styles.delete} onClick={onDelete}>
+				<span className={styles.delete} onClick={value ? () => onDelete({ value, label }) : () => onDelete(label)}>
 					<svg viewBox="0 0 40 40" className={styles.deleteIcon}>
 						<path className={styles.deleteX} d="M 12,12 L 28,28 M 28,12 L 12,28" />
 					</svg>
